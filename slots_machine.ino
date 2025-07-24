@@ -54,7 +54,7 @@ void loop() {
 
   // waits for button to reset
   if (digitalRead(button_pin) == LOW) {
-    // Ssts new spin durations
+    // sets new spin durations
     remaining_1 = rand_pos();
     remaining_2 = remaining_1 + rand_pos();
     remaining_3 = remaining_2 + rand_pos();

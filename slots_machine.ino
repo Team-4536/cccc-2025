@@ -1,4 +1,4 @@
-#include <slots_machine.h>
+#include "slots_machine.h"
 
 const int M1[4] = {2, 3, 4, 5}; // motor 1 pins
 const int M2[4] = {6, 7, 8, 9}; // motor 2 pins
@@ -8,12 +8,17 @@ const int button_pin = 16; // button input pin
 
 int state = 0;
 
-int remaining_1;
-int remaining_2;
-int remaining_3;
+int remaining_1 = 0;
+int remaining_2 = 0;
+int remaining_3 = 0;
+
+int seg_1 = 1;
+int seg_2 = 2;
+int seg_3 = 3;
 
 void setup() {
   Serial.begin();
+  randomSeed(analogRead(0));
 
   for (int i = 0; i < 4; i++) {
     pinMode(M1[i], OUTPUT);
@@ -22,11 +27,6 @@ void setup() {
   }
 
   pinMode(button_pin, INPUT_PULLUP);
-
-  // sets initial spin durations
-  remaining_1 = rand_pos();
-  remaining_2 = remaining_1 + rand_pos();
-  remaining_3 = remaining_2 + rand_pos();
 }
 
 void loop() {
@@ -47,19 +47,29 @@ void loop() {
   if (remaining_3 > 0) { // spins motor 3 if it has a remaining duration left
     step_motor(M3, state);
     remaining_3--;
-    return;
   } else {
     stop_motor(M3);
-  }
 
-  // waits for button to reset
-  if (digitalRead(button_pin) == LOW) {
+    if (seg_1 == seg_2 && seg_2 == seg_3) {
+      Serial.println("triple win");
+    } else if (seg_1 == seg_2 || seg_2 == seg_3 || seg_3 == seg_1) {
+      Serial.println("double win");
+    }
+
+    // waits for button to reset
+    while (digitalRead(button_pin) == HIGH);
+    
     // sets new spin durations
-    remaining_1 = rand_pos();
-    remaining_2 = remaining_1 + rand_pos();
-    remaining_3 = remaining_2 + rand_pos();
+    remaining_1 = rand_pos(0, seg_1);
+    remaining_2 = rand_pos(1, seg_2);
+    remaining_3 = rand_pos(2, seg_3);
   }
 
-  state = ++state % 4;
-  delay(2);
+  if (state == 3) { // counts 0, 1, 2, 3 (changed to be simpler logic for the camp participants)
+    state = 0;
+  } else {
+    state = state + 1;
+  }
+
+  delay(4);
 }

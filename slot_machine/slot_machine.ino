@@ -1,4 +1,4 @@
-#include "slots_machine.h"
+#include "slot_machine.h"
 
 const int M1[4] = {2, 3, 4, 5}; // motor 1 pins
 const int M2[4] = {6, 7, 8, 9}; // motor 2 pins
@@ -50,17 +50,24 @@ void loop() {
   } else {
     stop_motor(M3);
 
+    Serial.print("spin:");  // TODO: Figure out why we're only spinning across 3 values instead of 5 values
+    Serial.print(seg_1);
+    Serial.print(seg_2);
+    Serial.print(seg_3);
+
     if (seg_1 == seg_2 && seg_2 == seg_3) {
-      Serial.println("triple win");
+      Serial.println(", triple win!!!");
     } else if (seg_1 == seg_2 || seg_2 == seg_3 || seg_3 == seg_1) {
-      Serial.println("double win");
+      Serial.println(", double win!!");
+    } else {
+      Serial.println(". No luck, try again...");
     }
 
     // waits for button to reset
-    while (digitalRead(button_pin) == HIGH);
+    while (digitalRead(button_pin) == HIGH);  // TODO: Change button wiring, INPUT_PULLDOWN, and this logic to LOW
     
     // sets new spin durations
-    remaining_1 = rand_pos(0, seg_1);
+    remaining_1 = rand_pos(0, seg_1);  // TODO: Move random generator into main .ino file.  Also re-do logic so it spins N more spots, where N is random.
     remaining_2 = rand_pos(1, seg_2);
     remaining_3 = rand_pos(2, seg_3);
   }

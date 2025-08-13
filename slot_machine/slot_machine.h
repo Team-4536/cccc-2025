@@ -13,7 +13,7 @@ int rand_pos(int motor, int &segment) {
   // return SPR;
 }
 
-void step_motor(const int pins[4], const int state) {
+void step_motor(const int pins[4], const int state) {  // TODO: Embed State internally using a static int
   for (int i = 0; i < 4; i++) digitalWrite(pins[i], state == i || state == (i + 1) % 4);
 }
 

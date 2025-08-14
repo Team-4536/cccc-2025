@@ -7,8 +7,8 @@ const int wheel_items[3][5] = {
   {1, 2, 3, 4, 5}
 };
 
-int rand_pos(int motor, int &segment) {
-  int position = random(0, 5);
+int rand_pos(int motor, int &segment) {  // TODO: This doesn't take into account the current position of the wheel
+  int position = random(0, 5); // get a number from 0 to 4
   segment = wheel_items[motor][position];
   return SPR * (2 + (position / 5.0) + 2 * motor);
   // return SPR;

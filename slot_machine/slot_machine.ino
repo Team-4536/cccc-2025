@@ -65,6 +65,7 @@ void loop() {
 
     // waits for button to reset
     while (digitalRead(button_pin) == HIGH);  // TODO: Change button wiring, INPUT_PULLDOWN, and this logic to LOW
+                                              // TODO: Remove this blocking call with while(), use if() instead.
     
     // sets new spin durations
     remaining_1 = rand_pos(0, seg_1);  // TODO: Move random generator into main .ino file.  Also re-do logic so it spins N more spots, where N is random.

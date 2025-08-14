@@ -1,4 +1,4 @@
-const int SPR = 512; // steps per revolution
+const int SPR = 513; // steps per revolution
 
 const int wheel_items[3][5] = {
   {1, 2, 3, 4, 5},

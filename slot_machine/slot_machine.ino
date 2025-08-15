@@ -6,8 +6,6 @@ const int M3[4] = {10, 11, 12, 13}; // motor 3 pins
 
 const int button_pin = 16; // button input pin
 
-int state = 0;
-
 int remaining_1 = 0;
 int remaining_2 = 0;
 int remaining_3 = 0;
@@ -19,37 +17,35 @@ int seg_3 = 3;
 void setup() {
   Serial.begin();
   randomSeed(analogRead(0));
+  
+  begin_motors(M1,M2,M3);
 
-  for (int i = 0; i < 4; i++) {
-    pinMode(M1[i], OUTPUT);
-    pinMode(M2[i], OUTPUT);
-    pinMode(M3[i], OUTPUT);
-  }
-
-  pinMode(button_pin, INPUT_PULLUP);
+  pinMode(button_pin, INPUT_PULLDOWN);
 }
 
 void loop() {
   if (remaining_1 > 0) { // spins motor 1 if it has a remaining duration left
-    step_motor(M1, state);
+    step_motorM1(M1);
     remaining_1--;
   } else {
     stop_motor(M1);
   }
 
   if (remaining_2 > 0) { // spins motor 2 if it has a remaining duration left
-    step_motor(M2, state);
+    step_motorM2(M2);
     remaining_2--;
   } else {
     stop_motor(M2);
   }
 
   if (remaining_3 > 0) { // spins motor 3 if it has a remaining duration left
-    step_motor(M3, state);
+    step_motorM3(M3);
     remaining_3--;
   } else {
     stop_motor(M3);
+  }
 
+  if (remaining_1 <= 0 && remaining_2 <= 0 && remaining_3 <= 0) {
     Serial.print("spin:");  // TODO: Figure out why we're only spinning across 3 values instead of 5 values
     Serial.print(seg_1);
     Serial.print(seg_2);
@@ -63,20 +59,15 @@ void loop() {
       Serial.println(". No luck, try again...");
     }
 
-    // waits for button to reset
-    while (digitalRead(button_pin) == HIGH);  // TODO: Change button wiring, INPUT_PULLDOWN, and this logic to LOW
-                                              // TODO: Remove this blocking call with while(), use if() instead.
-    
-    // sets new spin durations
-    remaining_1 = rand_pos(0, seg_1);  // TODO: Move random generator into main .ino file.  Also re-do logic so it spins N more spots, where N is random.
-    remaining_2 = rand_pos(1, seg_2);
-    remaining_3 = rand_pos(2, seg_3);
-  }
-
-  if (state == 3) { // counts 0, 1, 2, 3 (changed to be simpler logic for the camp participants)
-    state = 0;
-  } else {
-    state = state + 1;
+     // Do nothing and wait until the button is pressed.
+    if (digitalRead(button_pin) == LOW) {  
+      delay(100); 
+    } else { 
+      // roll three new spins!
+      remaining_1 = rand_pos(0, seg_1);  // TODO: Move random generator into main .ino file.  Also re-do logic so it spins N more spots, where N is random.
+      remaining_2 = rand_pos(1, seg_2);
+      remaining_3 = rand_pos(2, seg_3);
+    }
   }
 
   delay(4);

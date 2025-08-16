@@ -30,10 +30,15 @@ void loop()
   }
   else
   {
+    stop_motor(M1);
+    stop_motor(M2);
+    stop_motor(M3);
+
     digitalWrite(led_pin, HIGH);
     delay(250);
     digitalWrite(led_pin, LOW);
     delay(250);
+
     Serial.println("Hello World");
   }
 }

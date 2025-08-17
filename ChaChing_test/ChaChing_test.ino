@@ -1,12 +1,12 @@
 #include "slot_machine.h"
 
 // const int M1[4] = {2, 4, 3, 5}; // motor 1 pins
-const int M1[4] = {2, 3, 4, 5};     // motor 1 pins   // 2 Blue, 3 Pink, 4 yellow, 5 Orange
-const int M2[4] = {6, 7, 8, 9};     // motor 2 pins
-const int M3[4] = {10, 11, 12, 13}; // motor 3 pins
+int M1[4] = {2, 3, 4, 5};     // motor 1 pins   // 2 Blue, 3 Pink, 4 yellow, 5 Orange
+int M2[4] = {6, 7, 8, 9};     // motor 2 pins
+int M3[4] = {10, 11, 12, 13}; // motor 3 pins
 
-const int button_pin = 16; // button input pin
-const int led_pin = 15;    // button input pin
+int button_pin = 16; // button input pin
+int led_pin = 15;    // button input pin
 
 void setup()
 {

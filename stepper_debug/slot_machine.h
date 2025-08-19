@@ -8,7 +8,7 @@ const int wheel_items[3][5] = {
 };
 
 int rand_pos(int motor, int &segment) {
-  randomSeed(millis());
+  static bool seeded = (randomSeed(millis()), true);
 
   int position = random(0, 5);
   segment = wheel_items[motor][position];

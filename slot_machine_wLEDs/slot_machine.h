@@ -1,4 +1,4 @@
-const int SPR = 255; // steps per revolution
+const int SPR = 257; // steps per revolution
 const int debug = false;
 
 const int wheel_items[3][5] = {
@@ -9,7 +9,7 @@ const int wheel_items[3][5] = {
 
 
 int rand_pos(int motor, int &segment) {  // TODO: This doesn't take into account the current position of the wheel
-  randomSeed(millis());
+  static bool seeded = (randomSeed(millis()), true);
 
   int position = random(0, 5); // get a number from 0 to 4
   segment = wheel_items[motor][position];  // Save the winning segment for display purposes

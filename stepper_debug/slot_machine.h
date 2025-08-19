@@ -1,4 +1,4 @@
-const int SPR = 516; // steps per revolution
+const int SPR = 257; // steps per revolution
 const int debug = false;
 
 const int wheel_items[3][5] = {

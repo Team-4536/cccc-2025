@@ -45,6 +45,8 @@ void loop() {
   }
   
   if (remaining_1 <= 0 && remaining_2 <= 0 && remaining_3 <= 0) {
+    remaining_3 = remaining_3 - 1; // this will ensure that the slot machine results will only be printed once
+
     Serial.print("spin: ");  
     Serial.print(seg_1);
     Serial.print(seg_2);

@@ -8,14 +8,13 @@ const int wheel_items[3][5] = {
   {1, 2, 3, 4, 5}
 };
 
-int rand_pos(int motor, int &segment) {  // TODO: This doesn't take into account the current position of the wheel
-  static bool seeded = (randomSeed(millis()), true); // maybe not the best sollution but it should work
+int rand_pos(int motor, int &segment) {  
+  static bool seeded = (randomSeed(millis()), true); 
 
   int position = random(0, 5); // get a number from 0 to 4
-  segment = wheel_items[motor][position];  // Save the winning segment for display purposes
-  float finalSegment = SPR * (2 + (2 * motor) + (position / 5.0) - ((prevSegment[motor]-1) / 5.0));   // calcualte target motor position in number of steps:
-                                                                                                      // (3 full spins + extra per motor + additional segments - previous position) * SPR -> to convert 1-5 into steps for motor
-
+  segment = wheel_items[motor][position];  // saves the winning segment for display purposes
+  float finalSegment = SPR * (2 + (2 * motor) + (position / 5.0) - ((prevSegment[motor] - 1) / 5.0)); // calcualte target motor position in number of steps:
+                                                                                                    // (3 full spins + extra per motor + additional segments - previous position) * SPR -> to convert 1-5 into steps for motor
   prevSegment[motor] = segment; // update previous for next spin
   return finalSegment;
 }

@@ -45,7 +45,7 @@ void loop() {
   }
   
   if (remaining_1 <= 0 && remaining_2 <= 0 && remaining_3 <= 0) {
-    Serial.print("spin: ");  // TODO: Figure out why we're only spinning across 3 values instead of 5 values
+    Serial.print("spin: ");  
     Serial.print(seg_1);
     Serial.print(seg_2);
     Serial.print(seg_3);
@@ -53,7 +53,7 @@ void loop() {
     if (seg_1 == seg_2 && seg_2 == seg_3) {
       if (seg_1 == 1){
         Serial.println(", JACKPOT!!!!!");
-      } else{ 
+      } else { 
         Serial.println(", triple win!!!");
       }
     } else if (seg_1 == seg_2 || seg_2 == seg_3 || seg_3 == seg_1) {
@@ -62,12 +62,12 @@ void loop() {
       Serial.println(". No luck, try again...");
     }
 
-     // Do nothing and wait until the button is pressed.
+    // Do nothing and wait until the button is pressed.
     if (digitalRead(button_pin) == LOW) {  
       delay(100); 
     } else { 
       // roll three new spins!
-      remaining_1 = rand_pos(0, seg_1);  // TODO: Move random generator into main .ino file.  Also re-do logic so it spins N more spots, where N is random.
+      remaining_1 = rand_pos(0, seg_1);  
       remaining_2 = rand_pos(1, seg_2);
       remaining_3 = rand_pos(2, seg_3);
     }

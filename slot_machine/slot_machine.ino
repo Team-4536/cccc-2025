@@ -25,21 +25,21 @@ void setup() {
 void loop() {
   if (remaining_1 > 0) { // spins motor 1 if it has a remaining duration left
     step_motorM1(M1);
-    remaining_1--;
+    remaining_1 - 1;
   } else {
     stop_motor(M1);
   }
 
   if (remaining_2 > 0) { // spins motor 2 if it has a remaining duration left
     step_motorM2(M2);
-    remaining_2--;
+    remaining_2 - 1;
   } else {
     stop_motor(M2);
   }
 
   if (remaining_3 > 0) { // spins motor 3 if it has a remaining duration left
     step_motorM3(M3);
-    remaining_3--;
+    remaining_3 - 1;
   } else {
     stop_motor(M3);
   }

@@ -1,5 +1,6 @@
 const int SPR = 257; // steps per revolution
 const int debug = false;
+int prevSegment[3] = {1, 1, 1};
 
 const int wheel_items[3][5] = {
   {1, 2, 3, 4, 5},
@@ -7,13 +8,16 @@ const int wheel_items[3][5] = {
   {1, 2, 3, 4, 5}
 };
 
-
 int rand_pos(int motor, int &segment) {  // TODO: This doesn't take into account the current position of the wheel
   static bool seeded = (randomSeed(millis()), true); // maybe not the best sollution but it should work
 
   int position = random(0, 5); // get a number from 0 to 4
   segment = wheel_items[motor][position];  // Save the winning segment for display purposes
-  return SPR * (2 + (position / 5.0) + 2 * motor);  // return target motor position in number of steps
+  float finalSegment = SPR * (2 + (2 * motor) + (position / 5.0) - ((prevSegment[motor]-1) / 5.0));   // calcualte target motor position in number of steps:
+                                                                                                      // (3 full spins + extra per motor + additional segments - previous position) * SPR -> to convert 1-5 into steps for motor
+
+  prevSegment[motor] = segment; // update previous for next spin
+  return finalSegment;
 }
 
 void begin_motors(const int pinsM1[4],const int pinsM2[4],const int pinsM3[4]) {
@@ -23,7 +27,6 @@ void begin_motors(const int pinsM1[4],const int pinsM2[4],const int pinsM3[4]) {
     pinMode(pinsM3[i], OUTPUT);
   }
 }
-
 
 void step_motorM1(const int pins[4]) {
   static int state = 0;
@@ -41,7 +44,6 @@ void step_motorM1(const int pins[4]) {
   if (debug) {Serial.println(" ");}
 }
 
-
 void step_motorM2(const int pins[4]) {
   static int state = 0;
 
@@ -57,7 +59,6 @@ void step_motorM2(const int pins[4]) {
   }
   if (debug) {Serial.println(" ");}
 }
-
 
 void step_motorM3(const int pins[4]) {
   static int state = 0;
@@ -75,13 +76,11 @@ void step_motorM3(const int pins[4]) {
   if (debug) {Serial.println(" ");}
 }
 
-
 void stop_motor(const int pins[4]) {
   for (int i = 0; i < 4; i++) {
     digitalWrite(pins[i], LOW);
   }
 }
-
 
 void step_motor(const int pins[4], const int state) { // TODO: Embed State internally using a static int
   for (int i = 0; i < 4; i++) {

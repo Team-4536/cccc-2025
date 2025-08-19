@@ -11,8 +11,8 @@ int remaining_2 = 0;
 int remaining_3 = 0;
 
 int seg_1 = 1;
-int seg_2 = 2;
-int seg_3 = 3;
+int seg_2 = 1;
+int seg_3 = 1;
 
 void setup() {
   Serial.begin();
@@ -43,15 +43,19 @@ void loop() {
   } else {
     stop_motor(M3);
   }
-
+  
   if (remaining_1 <= 0 && remaining_2 <= 0 && remaining_3 <= 0) {
-    Serial.print("spin:");  // TODO: Figure out why we're only spinning across 3 values instead of 5 values
+    Serial.print("spin: ");  // TODO: Figure out why we're only spinning across 3 values instead of 5 values
     Serial.print(seg_1);
     Serial.print(seg_2);
     Serial.print(seg_3);
 
     if (seg_1 == seg_2 && seg_2 == seg_3) {
-      Serial.println(", triple win!!!");
+      if (seg_1 == 1){
+        Serial.println(", JACKPOT!!!!!");
+      } else{ 
+        Serial.println(", triple win!!!");
+      }
     } else if (seg_1 == seg_2 || seg_2 == seg_3 || seg_3 == seg_1) {
       Serial.println(", double win!!");
     } else {

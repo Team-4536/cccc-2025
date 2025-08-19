@@ -8,6 +8,8 @@ const int wheel_items[3][5] = {
 };
 
 int rand_pos(int motor, int &segment) {
+  randomSeed(millis());
+
   int position = random(0, 5);
   segment = wheel_items[motor][position];
   return SPR * (2 + (position / 5.0) + 2 * motor);

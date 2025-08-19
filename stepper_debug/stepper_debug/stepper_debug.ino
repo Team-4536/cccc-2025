@@ -19,8 +19,7 @@ int seg_3 = 3;
 
 void setup() {
   Serial.begin();
-  randomSeed(millis());
-
+  
   for (int i = 0; i < 4; i++) {
     pinMode(M1[i], OUTPUT);
     pinMode(M2[i], OUTPUT);

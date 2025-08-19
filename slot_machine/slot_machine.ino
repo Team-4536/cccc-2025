@@ -16,7 +16,6 @@ int seg_3 = 3;
 
 void setup() {
   Serial.begin();
-  randomSeed(millis());
   
   begin_motors(M1,M2,M3);
 

@@ -15,9 +15,7 @@ int seg_1 = 1;
 int seg_2 = 2;
 int seg_3 = 3;
 
-void setup() {
-  randomSeed(millis());
-  
+void setup() {  
   pinMode(led_pin, OUTPUT);
   pinMode(button_pin, INPUT_PULLDOWN);
 

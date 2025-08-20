@@ -1,4 +1,4 @@
-#include "slot_machine.h"
+#include "SlotHeader.h"
 
 int M1[4] = {2, 3, 4, 5}; // motor 1 pins
 int M2[4] = {6, 7, 8, 9}; // motor 2 pins

@@ -56,13 +56,13 @@ void loop() {
   } else {
     stop_motor(motor_3_pins);
   }
-  
+
 
   // once all wheels have stopped spinning, this code runs
   if (remaining_1 == 0 && remaining_2 == 0 && remaining_3 == 0) {
 
     // checks if the computer has already printed the result, if it hasn't then it prints it
-    if (resultPrinted == false){
+    if (resultPrinted == false) {
       Serial.print("Spin: ");  
       Serial.print(seg_1);
       Serial.print(seg_2);

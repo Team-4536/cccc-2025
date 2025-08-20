@@ -16,7 +16,7 @@ int rand_pos(int motor, int &segment, bool isRandom = true) {
 
   // rig game to win if desired
   if (!isRandom){
-    int position = 0;
+    position = 0;
   }
   
   segment = wheel_items[motor][position];  // Save the winning segment for display purposes

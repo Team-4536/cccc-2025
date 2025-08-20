@@ -85,7 +85,7 @@ void loop() {
     // If the button is pressed, roll 3 spins. Otherwise do nothing and just wait
     if (digitalRead(button_pin) == HIGH) {
       // roll three new spins!
-      remaining_1 = rand_pos(0, seg_1);  
+      remaining_1 = rand_pos(0, seg_1);
       remaining_2 = rand_pos(1, seg_2);
       remaining_3 = rand_pos(2, seg_3);
 

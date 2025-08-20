@@ -39,21 +39,21 @@ void loop() {
   if (remaining_1 > 0) { // spins motor 1 if it has a remaining duration left
     step_motorM1(motor_1_pins);
     remaining_1 = remaining_1 - 1;
-  }else {
+  } else {
     stop_motor(motor_1_pins);
   }
 
   if (remaining_2 > 0) { // spins motor 2 if it has a remaining duration left
     step_motorM2(motor_2_pins);
     remaining_2 = remaining_2 - 1;
-  }else {
+  } else {
     stop_motor(motor_2_pins);
   }
 
   if (remaining_3 > 0) { // spins motor 3 if it has a remaining duration left
     step_motorM3(motor_3_pins);
     remaining_3 = remaining_3 - 1;
-  }else {
+  } else {
     stop_motor(motor_3_pins);
   }
   
@@ -70,11 +70,11 @@ void loop() {
 
       if (seg_1 == 1 && seg_2 == 1 && seg_3 == 1) {                     // All three segments are 1 (starting position)
         Serial.println(", JACKPOT!!!!!");
-      }else if (seg_1 == seg_2 && seg_2 == seg_3){                     // All three segments are the same
+      } else if (seg_1 == seg_2 && seg_2 == seg_3) {                    // All three segments are the same
         Serial.println(", TRIPLE win!!!");
-      }else if (seg_1 == seg_2 || seg_2 == seg_3 || seg_1 == seg_3) {  // Any two segments are the same
+      } else if (seg_1 == seg_2 || seg_2 == seg_3 || seg_1 == seg_3) {  // Any two segments are the same
         Serial.println(", double win!!");
-      }else {                                                          // None are the same
+      } else {                                                          // None are the same
         Serial.println(". No luck, try again...");
       }
 
@@ -90,7 +90,7 @@ void loop() {
       remaining_3 = rand_pos(2, seg_3);
 
       resultPrinted = false; // let the computer know the NEW result has not yet been printed
-    }else { 
+    } else { 
       delay(100);
     }
   }
